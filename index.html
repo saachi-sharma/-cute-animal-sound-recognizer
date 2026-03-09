@@ -1,47 +1,128 @@
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <title>Sound Identification Web App</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/ml5@0.4.3/dist/ml5.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Financial Institution Operations Console</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
 
   <body>
-    <div class="col-xs-12 header_div text-center">
-      <h2>Sound controlled Animals</h2>
-      <p>Note: Play different sounds like background noise, meowing, roaring, and barking to make the animals move</p>
-    </div>
-    <div class="main_div">
-      <center>
-        <br>
-        <button class="btn btn-warning" onclick="startClassification();">START</button>
-        <h3 id="result_label">I can hear - </h3>
-        <h4 id="result_confidence">Accuracy - </h4>
-        <br>
-        <img src="animal.jpg" id="animal1" width="350" height="300">
-        <img src="KITTY IMG.jpg" id="animal2" width="300" height="300">
-        <img src="DOG IMG.jpg" id="animal3" width="300" height="300">
-        <img src="LION IMG 1.jpg" id="animal4" width="300" height="300">
-      </center>
-      </div>
-      <div class="copy_right_footer">
-        Developed by - 𝓢𝓪𝓪𝓬𝓱𝓲 𝓢𝓱𝓪𝓻𝓶𝓪
-      </div>
-<script src="main.js"></script>
+    <header class="container-fluid header_div text-center">
+      <h1>Financial Institution Operations Console</h1>
+      <p>
+        A lightweight internal dashboard for risk screening, transaction monitoring,
+        and loan affordability calculations.
+      </p>
+    </header>
+
+    <main class="container main_div">
+      <section class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Customer Risk Screening</h3>
+        </div>
+        <div class="panel-body row">
+          <div class="col-sm-4 form-group">
+            <label for="customerName">Customer Name</label>
+            <input id="customerName" class="form-control" placeholder="e.g. Alex Morgan" />
+          </div>
+          <div class="col-sm-4 form-group">
+            <label for="monthlyIncome">Monthly Income (USD)</label>
+            <input id="monthlyIncome" type="number" class="form-control" placeholder="5000" />
+          </div>
+          <div class="col-sm-4 form-group">
+            <label for="debtObligations">Monthly Debt Obligations (USD)</label>
+            <input id="debtObligations" type="number" class="form-control" placeholder="1200" />
+          </div>
+          <div class="col-sm-4 form-group">
+            <label for="creditScore">Credit Score</label>
+            <input id="creditScore" type="number" class="form-control" placeholder="720" />
+          </div>
+          <div class="col-sm-4 form-group">
+            <label for="kycStatus">KYC Status</label>
+            <select id="kycStatus" class="form-control">
+              <option value="verified">Verified</option>
+              <option value="pending">Pending</option>
+              <option value="failed">Failed</option>
+            </select>
+          </div>
+          <div class="col-sm-4 form-group">
+            <label for="sanctionFlag">Sanctions Match</label>
+            <select id="sanctionFlag" class="form-control">
+              <option value="no">No Match</option>
+              <option value="yes">Potential Match</option>
+            </select>
+          </div>
+          <div class="col-sm-12">
+            <button id="riskBtn" class="btn btn-primary">Assess Risk</button>
+          </div>
+          <div class="col-sm-12 result-card" id="riskResult">Awaiting assessment...</div>
+        </div>
+      </section>
+
+      <section class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Transaction Monitoring</h3>
+        </div>
+        <div class="panel-body row">
+          <div class="col-sm-4 form-group">
+            <label for="txnAmount">Transaction Amount (USD)</label>
+            <input id="txnAmount" type="number" class="form-control" placeholder="8500" />
+          </div>
+          <div class="col-sm-4 form-group">
+            <label for="txnCountry">Destination Country Risk</label>
+            <select id="txnCountry" class="form-control">
+              <option value="low">Low Risk Jurisdiction</option>
+              <option value="medium">Medium Risk Jurisdiction</option>
+              <option value="high">High Risk Jurisdiction</option>
+            </select>
+          </div>
+          <div class="col-sm-4 form-group">
+            <label for="txnVelocity">Transactions in Last 24h</label>
+            <input id="txnVelocity" type="number" class="form-control" placeholder="2" />
+          </div>
+          <div class="col-sm-12">
+            <button id="txnBtn" class="btn btn-warning">Run AML Check</button>
+          </div>
+          <div class="col-sm-12 result-card" id="txnResult">No alerts generated.</div>
+        </div>
+      </section>
+
+      <section class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Loan Affordability Snapshot</h3>
+        </div>
+        <div class="panel-body row">
+          <div class="col-sm-3 form-group">
+            <label for="loanAmount">Loan Amount (USD)</label>
+            <input id="loanAmount" type="number" class="form-control" placeholder="250000" />
+          </div>
+          <div class="col-sm-3 form-group">
+            <label for="annualRate">Annual Interest Rate (%)</label>
+            <input id="annualRate" type="number" class="form-control" placeholder="7" step="0.1" />
+          </div>
+          <div class="col-sm-3 form-group">
+            <label for="termYears">Term (Years)</label>
+            <input id="termYears" type="number" class="form-control" placeholder="15" />
+          </div>
+          <div class="col-sm-3 form-group">
+            <label for="borrowerIncome">Borrower Monthly Income (USD)</label>
+            <input id="borrowerIncome" type="number" class="form-control" placeholder="6500" />
+          </div>
+          <div class="col-sm-12">
+            <button id="loanBtn" class="btn btn-success">Calculate</button>
+          </div>
+          <div class="col-sm-12 result-card" id="loanResult">Waiting for input...</div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="copy_right_footer">Prototype operations software for financial institution use</footer>
+
+    <script src="main.js"></script>
   </body>
 </html>
-
-
-
-
-
-
-
-
- 
-
